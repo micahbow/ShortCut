@@ -14,6 +14,7 @@ SOURCES += \
 
 HEADERS += \
     cityNode.h \
+    graph.h \
     mainwindow.h
 
 FORMS += \
@@ -23,3 +24,10 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    CitiesEdgeList.txt \
+    D:/Downloads/CitiesEdgeList.txt \
+    D:/Downloads/worldcities.csv \
+    myWork.png \
+    worldcities.csv

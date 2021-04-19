@@ -6,21 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1178</width>
-    <height>552</height>
+    <width>1383</width>
+    <height>760</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1221</width>
-      <height>581</height>
+      <width>1371</width>
+      <height>701</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -143,19 +146,6 @@
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
-       <widget class="Line" name="line_2">
-        <property name="geometry">
-         <rect>
-          <x>503</x>
-          <y>0</y>
-          <width>20</width>
-          <height>531</height>
-         </rect>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
        <widget class="Line" name="line_3">
         <property name="geometry">
          <rect>
@@ -177,6 +167,12 @@
           <width>131</width>
           <height>41</height>
          </rect>
+        </property>
+        <property name="smallDecimalPoint">
+         <bool>true</bool>
+        </property>
+        <property name="value" stdset="0">
+         <double>0.000000000000000</double>
         </property>
        </widget>
        <widget class="QLabel" name="label_3">
@@ -231,26 +227,48 @@
         <property name="geometry">
          <rect>
           <x>510</x>
-          <y>0</y>
-          <width>671</width>
-          <height>511</height>
+          <y>10</y>
+          <width>861</width>
+          <height>691</height>
          </rect>
         </property>
        </widget>
-       <widget class="QProgressBar" name="output_progress">
+       <widget class="QPushButton" name="input_zoomIn">
         <property name="geometry">
          <rect>
-          <x>460</x>
-          <y>20</y>
+          <x>1334</x>
+          <y>30</y>
           <width>21</width>
-          <height>481</height>
+          <height>23</height>
          </rect>
         </property>
-        <property name="value">
-         <number>24</number>
+        <property name="font">
+         <font>
+          <family>Impact</family>
+          <pointsize>12</pointsize>
+         </font>
         </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+        <property name="text">
+         <string>+</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="input_zoomOut">
+        <property name="geometry">
+         <rect>
+          <x>1334</x>
+          <y>60</y>
+          <width>21</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>Impact</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>-</string>
         </property>
        </widget>
       </widget>
@@ -264,7 +282,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1178</width>
+     <width>1383</width>
      <height>21</height>
     </rect>
    </property>
