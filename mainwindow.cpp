@@ -28,6 +28,9 @@ MainWindow::MainWindow(std::vector<cityNode*> & cityNodes,std::vector<std::vecto
     ui->input_units->addItem("Miles");
     ui->input_units->addItem("Kilometers");
 
+    ui->input_method->addItem("Dijkstra's");
+    ui->input_method->addItem("Depth-First");
+
 }
 
 MainWindow::~MainWindow()
@@ -121,21 +124,36 @@ void MainWindow::on_input_calculate_clicked()
 
     graph fullGraph(adjList);
 
-    if(savedPath.size() == 0 || sourceCity->getIndex()!=oldSource)
-    {
-        this->savedPath = dijkstra(fullGraph,sourceCity->getIndex());
-        oldSource = sourceCity->getIndex();
-    }
-
-    std::vector<int> midPath = shortestPath(destCity->getIndex(),this->savedPath);
-
     std::vector<cityNode*> finalPath;
 
-    for(int i = 0; i < midPath.size(); i++)
+    if(ui->input_method->currentText() == "Depth-First")
     {
-        finalPath.push_back(cityVec.at(midPath.at(i)));
+        std::set<int> visited;
+        std::vector<int> temp;
+        std::vector<int> midPath;
+        dfs(fullGraph,sourceCity->getIndex(),destCity->getIndex(),temp,visited,midPath);
+        if(midPath.size() == 0) {throw std::invalid_argument("DFS BROKE");}
+        for(int i = 0; i < midPath.size(); i++)
+        {
+            finalPath.push_back(cityVec.at(midPath.at(i)));
+        }
     }
+    else
+    {
 
+        if(savedPath.size() == 0 || sourceCity->getIndex()!=oldSource)
+        {
+            this->savedPath = dijkstra(fullGraph,sourceCity->getIndex());
+            oldSource = sourceCity->getIndex();
+        }
+
+        std::vector<int> midPath = shortestPath(destCity->getIndex(),this->savedPath);
+
+        for(int i = 0; i < midPath.size(); i++)
+        {
+            finalPath.push_back(cityVec.at(midPath.at(i)));
+        }
+    }
     this->createGraph(finalPath);
 
     this->readyState = true;
@@ -146,7 +164,7 @@ void MainWindow::createGraph(std::vector<cityNode*> toGraph)
 {
     scene->clear();
 
-    QImage map("C:\\Users\\micah\\OneDrive\\Documents\\QTtest1\\myWork.png");
+    QImage map("C:\\Users\\micah\\OneDrive\\Documents\\QTtest1\\map.png");
     if (map.isNull()) { throw std::invalid_argument("image broke have a nice day");}
 
     //QImage zone = map.copy( xMinPixel-offset2, yMinPixel-offset2, width, height);
@@ -169,7 +187,7 @@ void MainWindow::createGraph(std::vector<cityNode*> toGraph)
 
     double p = 0.017453292519943295;
     /*
-    QImage map("C:\\Users\\micah\\OneDrive\\Documents\\QTtest1\\myWork.png");
+    QImage map("C:\\Users\\micah\\OneDrive\\Documents\\QTtest1\\map.png");
     if (map.isNull()) { throw std::invalid_argument("image broke have a nice day");}
 
     int imageXmax = map.width();
@@ -295,6 +313,28 @@ std::vector<int> MainWindow::shortestPath(int target, std::vector<int>& dijkPath
         currentPlace = dijkPath.at(currentPlace);
     }
     return thePath;
+}
+
+void MainWindow::dfs(const graph& ourgraph, int src, int target, std::vector<int> thePath, std::set<int> & visited, std::vector<int> & finalResult) {
+
+    if (visited.count(src) == 0)
+    {
+        visited.insert(src); // put initial node in both data types
+        thePath.push_back(src);
+
+        if (src == target)
+        {
+            finalResult = thePath;
+            return;
+        }
+
+        int u = src;
+        for (auto iter = ourgraph.adjList.at(u).begin(); iter != ourgraph.adjList.at(u).end(); iter++)
+        {
+            dfs(ourgraph, (*iter)->second, target, thePath, visited,finalResult);
+        }
+    }
+
 }
 
 

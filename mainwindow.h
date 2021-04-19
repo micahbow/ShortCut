@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include "cityNode.h"
 #include "graph.h"
+#include <set>
 
 #include <QtGui>
 #include <QtCore>
@@ -30,6 +31,7 @@ public:
     void displayDistance(double distance);
     std::vector<int> shortestPath(int target, std::vector<int>& dijkPath);
     std::vector<int> dijkstra(const graph& ourgraph, int src);
+    void dfs(const graph& ourgraph, int src, int target, std::vector<int> thePath, std::set<int> & visited, std::vector<int> & finalResult);
 
 private slots:
 
